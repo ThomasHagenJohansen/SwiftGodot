@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "SwiftGodot",
     platforms: [
-        .macOS(.v10_15)
+        .macOS(.v10_15),
+        .iOS("15.6"),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -43,20 +44,12 @@ let package = Package(
             name: "SwiftGodot",
             dependencies: ["GDExtension", "Generator"],
             swiftSettings: [.unsafeFlags (["-suppress-warnings"])],
-            linkerSettings: [
-                .unsafeFlags (
-                    ["-Xlinker", "-undefined",
-                     "-Xlinker", "dynamic_lookup",
-                    ])
-            ], plugins: ["CodeGeneratorPlugin"]),
+            linkerSettings: [], plugins: ["CodeGeneratorPlugin"]),
         .target(
             name: "SimpleExtension",
             dependencies: ["SwiftGodot"],
             swiftSettings: [.unsafeFlags (["-suppress-warnings"])],
-            linkerSettings: [
-                .unsafeFlags (
-                    ["-Xlinker", "-undefined",
-                     "-Xlinker", "dynamic_lookup"])]),
+            linkerSettings: []),
         // Idea: -mark_dead_strippable_dylib
         .testTarget(
             name: "SwiftGodotTests",

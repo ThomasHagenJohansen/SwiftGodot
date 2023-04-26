@@ -170,12 +170,16 @@ func loadBuiltinDoc (base: String, name: String) -> DocBuiltinClass? {
 }
 
 @available(macOS 13.0, *)
+@available(iOS 16.0, *)
 let rxConstantParam = #/\[(constant|param) ([\w\._@]+)\]/#
 @available(macOS 13.0, *)
+@available(iOS 16.0, *)
 let rxEnumMethodMember = #/\[(enum|method|member) ([\w\.@_/]+)\]/#
 @available(macOS 13.0, *)
+@available(iOS 16.0, *)
 let rxTypeName = #/\[([A-Z]\w+)\]/#
 @available(macOS 13.0, *)
+@available(iOS 16.0, *)
 let rxEmptyLeading = #/\s+/#
 
 // If the string contains a ".", it will return a pair
@@ -347,7 +351,7 @@ func doc (_ p: Printer, _ cdef: JClassInfo?, _ text: String?) {
         
         var mod = x
         
-        if #available(macOS 13.0, *) {
+        if #available(macOS 13.0, iOS 16.0, *) {
             // Replaces [params X] with `X`
             mod = mod.replacing(rxConstantParam, with: { x in
                 switch x.output.1 {
